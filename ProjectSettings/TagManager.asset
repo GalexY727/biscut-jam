@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 3
   tags:
   - TutorialRequirement
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - VFX
   - Water
   - UI
   - 
@@ -41,6 +42,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: VFX
+    uniqueID: 3072400155
     locked: 0
   m_RenderingLayers:
   - Default
