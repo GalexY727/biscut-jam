@@ -5,16 +5,23 @@ using UnityEngine.InputSystem;  // new input
 
 public class Laser : MonoBehaviour
 {
+    [Header("References")]
     public Transform muzzle;
     public LineRenderer beam;
+    public EnemyHealth enemy;
+
+    [Header("Laser Settings")]
     public float maxDistance = 30f;
     public float width = 0.08f;
     public LayerMask hitMask = ~0;
+
+    [Header("Firing")]
     public bool holdToFire = true;
     public float beamOnTime = 0.05f;
     public float fireRate = 10f;
     public float damagePerSecond = 25f;
 
+    // Private
     float _nextShotTime;
 
     void Awake()
@@ -81,7 +88,7 @@ public class Laser : MonoBehaviour
 #endif
         var cam = Camera.main;
         var world = cam.ScreenToWorldPoint(screen);
-        world.z = 0f; // 2D plane
+        world.z = 0f; 
         return world;
     }
     // ------------------------------------------------------
@@ -124,3 +131,4 @@ public class Laser : MonoBehaviour
 }
 
 public interface IDamageable { void Damage(float amount); }
+
