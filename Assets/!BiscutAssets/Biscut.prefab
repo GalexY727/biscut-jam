@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 7492647225647558863}
   - component: {fileID: 1687576941307493606}
   - component: {fileID: 5428882851933149725}
+  - component: {fileID: 4207230345307577136}
+  - component: {fileID: 522440997596655872}
   m_Layer: 0
   m_Name: Biscut
   m_TagString: Untagged
@@ -27,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8824777355880829871}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.753393, y: -2.2825963, z: -0.020261543}
   m_LocalScale: {x: 0.4658, y: 0.4658, z: 0.4658}
   m_ConstrainProportionsScale: 0
@@ -135,10 +137,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 8824777355880829871}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82cadc2e1d7a0f04badfd37176901936, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a17bf1dcfa14c04093804c6d7cc4cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bobAmplitude: 0.2
   bobSpeed: 1.4
   spinDegreesPerSec: 30
   scalePulse: 0.04
+--- !u!114 &4207230345307577136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8824777355880829871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a17bf1dcfa14c04093804c6d7cc4cf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bobAmplitude: 0.2
+  bobSpeed: 1.4
+  spinDegreesPerSec: 30
+  scalePulse: 0.04
+--- !u!114 &522440997596655872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8824777355880829871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c37083ae5ce62c645a964a25b79d406d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progressBar: {fileID: 0}
+  clicksPerSecondForMax: 5
+  winHoldSeconds: 2
