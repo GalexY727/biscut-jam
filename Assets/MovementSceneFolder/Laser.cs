@@ -14,6 +14,12 @@ public class Laser : MonoBehaviour
     public float maxDistance = 30f;
     public float width = 0.08f;
     public LayerMask hitMask = ~0;
+    public float reaction = 3f;
+    public bool triggerAnimation = true;
+    public string animTrigger = "Laser";
+    public bool changeColor = true;
+    public Color reactedColor = Color.red;
+    public bool revertColor = false;
 
     [Header("Firing")]
     public bool holdToFire = true;
@@ -23,6 +29,12 @@ public class Laser : MonoBehaviour
 
     // Private
     float _nextShotTime;
+
+    Collider2D _currentHit;
+    float _heldTime;
+    SpriteRenderer _currentSR;
+    Color _originalColor;
+    bool _reacted;
 
     void Awake()
     {
@@ -175,13 +187,74 @@ public class Laser : MonoBehaviour
         // Applies the damage if we hit something that can take damage
         if (hit)
         {
-            // Looks for a component that implements IDamageable on the hit objects
-            var dmg = hit.collider.GetComponent<IDamageable>();
-            if (dmg != null)
+            if (hit)
             {
-                // damagePerSecond is scaled by damageScale
-                dmg.Damage(damagePerSecond * damageScale);
+                if (_currentHit != hit.collider)
+                {
+                    ResetHoldState();
+                    _currentHit = hit.collider;
+                }
+
+                _heldTime += damageScale;
+
+                if (!_reacted && _heldTime >= reaction)
+                {
+                    if (triggerAnimation && !string.IsNullOrEmpty(animTrigger))
+                    {
+                        var anim = hit.collider.GetComponentInParent<Animator>();
+                        if (anim)
+                        {
+                            anim.SetTrigger(animTrigger);
+                        }
+                    }
+
+                    if (changeColor)
+                    {
+                        if (_currentSR == null)
+                        {
+                            _currentSR = hit.collider.GetComponentInParent<SpriteRenderer>();
+                            if (_currentSR != null) _originalColor = _currentSR.color;
+                        }
+                        if (_currentSR != null) _currentSR.color = reactedColor;
+                    }
+
+                    _reacted = true;
+                }
+
+                var dmg = hit.collider.GetComponentInParent<IDamageable>();
+                if (dmg != null)
+                {
+                    dmg.Damage(damagePerSecond * damageScale);
+                }
             }
+            else
+            {
+                ResetHoldState();
+            }
+
+            /// <summary>
+            /// Clear the "held on target" state. If 'revertColor' is true, restore original color.
+            /// Called when the target changes, beam stops hitting, or firing stops.
+            /// </summary>
+            void ResetHoldState()
+            {
+                _currentHit = null;
+                _heldTime = 0f;
+                _reacted = false;
+
+                if (revertColor && _currentSR != null)
+                {
+                    _currentSR.color = _originalColor;
+                }
+                _currentSR = null;
+            }
+            //// Looks for a component that implements IDamageable on the hit objects
+            //var dmg = hit.collider.GetComponent<IDamageable>();
+            //if (dmg != null)
+            //{
+            //    // damagePerSecond is scaled by damageScale
+            //    dmg.Damage(damagePerSecond * damageScale);
+            //}
         }
     }
 }
